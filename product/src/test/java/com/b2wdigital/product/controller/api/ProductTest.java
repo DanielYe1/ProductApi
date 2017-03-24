@@ -5,9 +5,6 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 
-/**
- * Created by daniel.ye on 16/03/17.
- */
 public class ProductTest {
 
     @Test
