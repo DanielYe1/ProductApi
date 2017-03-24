@@ -3,6 +3,7 @@ package com.b2wdigital.product.service;
 import com.b2wdigital.product.controller.api.FilterMetadata;
 import com.b2wdigital.product.model.Product;
 import com.b2wdigital.product.repository.ProductRepository;
+import com.b2wdigital.product.repository.QueryBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -31,7 +32,7 @@ public class ProductServiceTest {
     MongoTemplate mongo;
 
     @Mock
-    QueryCreator queryCreator;
+    QueryBuilder queryBuilder;
 
     @Test
     public void deveria_retornar_todos_produtos() {
@@ -40,7 +41,7 @@ public class ProductServiceTest {
         Query query = mock(Query.class);
         com.b2wdigital.product.controller.api.Product productApi = mock(com.b2wdigital.product.controller.api.Product.class);
 
-        when(queryCreator.buildFilter(productApi, filterMetadata)).thenReturn(query);
+        when(queryBuilder.buildFilter(productApi, filterMetadata)).thenReturn(query);
         when(mongo.find(query, Product.class)).thenReturn(Collections.singletonList(product));
         when(product.toProductApi()).thenReturn(productApi);
         assertThat(service.findAllBy(productApi, filterMetadata), equalTo(Collections.singletonList(productApi)));
