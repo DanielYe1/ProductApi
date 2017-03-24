@@ -2,7 +2,7 @@ package com.b2wdigital.product.repository;
 
 import com.b2wdigital.product.controller.api.FilterMetadata;
 import com.b2wdigital.product.controller.api.Product;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
@@ -11,6 +11,8 @@ import java.util.Optional;
 
 @Component
 public class QueryBuilder {
+    @Autowired
+    private SortBuilder sortBuilder;
 
     public Query buildFilter(Product filter, FilterMetadata filterMetadata) {
         Query query = new Query();
@@ -19,11 +21,9 @@ public class QueryBuilder {
 
         query.skip(filterMetadata.getOffset());
         query.limit(filterMetadata.getLimit());
-        if (filterMetadata.getSortBy() != null) {
-            query.with(new Sort(filterMetadata.createOrderList()));
-
+        if (filterMetadata.hasSortBy()) {
+            query.with(sortBuilder.build(filterMetadata));
         }
-
         return query;
     }
 }

@@ -4,16 +4,24 @@ import com.b2wdigital.product.controller.api.FilterMetadata;
 import com.b2wdigital.product.controller.api.Product;
 import com.b2wdigital.product.repository.QueryBuilder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class QueryBuilderTest {
 
-    QueryBuilder creator = new QueryBuilder();
+    @InjectMocks
+    private QueryBuilder creator;
 
+    @Mock
+    private SortBuilder sortBuilder;
 
     @Test
     public void deveria_criar_query_com_todos_os_atributos() {
