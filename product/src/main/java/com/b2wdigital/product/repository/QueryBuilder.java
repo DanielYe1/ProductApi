@@ -11,8 +11,12 @@ import java.util.Optional;
 
 @Component
 public class QueryBuilder {
+
     @Autowired
     private SortBuilder sortBuilder;
+
+    @Autowired
+    private FieldFilter fieldFilter;
 
     public Query buildFilter(Product filter, FilterMetadata filterMetadata) {
         Query query = new Query();
@@ -23,6 +27,9 @@ public class QueryBuilder {
         query.limit(filterMetadata.getLimit());
         if (filterMetadata.hasSortBy()) {
             query.with(sortBuilder.build(filterMetadata));
+        }
+        if (filterMetadata.hasFields()) {
+            fieldFilter.includeFields(query, filterMetadata);
         }
         return query;
     }

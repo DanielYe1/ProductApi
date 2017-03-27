@@ -23,6 +23,9 @@ public class QueryBuilderTest {
     @Mock
     private SortBuilder sortBuilder;
 
+    @Mock
+    private FieldFilter fieldFilter;
+
     @Test
     public void deveria_criar_query_com_todos_os_atributos() {
         Product product = new Product("1", "nome", "imagem");

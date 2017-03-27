@@ -32,4 +32,25 @@ public class FilterMetadataTest {
         filterMetadata.setSortBy(Collections.emptyList());
         assertThat(filterMetadata.hasSortBy(), equalTo(false));
     }
+
+    @Test
+    public void deveria_retornar_verdadeiro_por_ter_fields() {
+        FilterMetadata filterMetadata = new FilterMetadata();
+        filterMetadata.setFields(Collections.singletonList("name"));
+        assertThat(filterMetadata.hasFields(), equalTo(true));
+    }
+
+    @Test
+    public void deveria_retornar_falso_por_ter_fields_nulo() {
+        FilterMetadata filterMetadata = new FilterMetadata();
+        filterMetadata.setFields(null);
+        assertThat(filterMetadata.hasFields(), equalTo(false));
+    }
+
+    @Test
+    public void deveria_retornar_falso_por_ter_fields_vazio() {
+        FilterMetadata filterMetadata = new FilterMetadata();
+        filterMetadata.setFields(Collections.emptyList());
+        assertThat(filterMetadata.hasFields(), equalTo(false));
+    }
 }

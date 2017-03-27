@@ -19,4 +19,8 @@ public class FilterMetadata {
     public boolean hasSortBy() {
         return sortBy != null && !sortBy.isEmpty();
     }
+
+    public boolean hasFields() {
+        return fields != null && !fields.isEmpty();
+    }
 }
