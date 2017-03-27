@@ -1,8 +1,6 @@
 package com.b2wdigital.product.controller;
 
-import com.b2wdigital.product.controller.api.FilterMetadata;
-import com.b2wdigital.product.controller.api.Product;
-import com.b2wdigital.product.controller.api.ResponseHeaderBuilder;
+import com.b2wdigital.product.controller.api.*;
 import com.b2wdigital.product.repository.ProductRepository;
 import com.b2wdigital.product.service.ProductService;
 import org.junit.Test;
@@ -47,13 +45,14 @@ public class ProductControllerIT {
 
     @Test
     public void deveria_retornar_dados_do_produto() throws Exception {
-        given(service.findAllBy(any(Product.class), any(FilterMetadata.class))).willReturn(Collections.singletonList(new Product("1", "prod1", "img1")));
+        given(service.findAllBy(any(Product.class), any(FilterMetadata.class))).willReturn(new ProductList(Collections.singletonList(new Product("1", "prod1", "img1")),
+                new Result(20)));
 
         this.mvc.
                 perform(get("/product")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"products\":[{\"id\":\"1\",\"name\":\"prod1\",\"image\":\"img1\"}]}")).andDo(print());
+                .andExpect(content().string("{\"products\":[{\"id\":\"1\",\"name\":\"prod1\",\"image\":\"img1\"}],\"_result\":{\"total\":20,\"limit\":20,\"offset\":0}}")).andDo(print());
     }
 
     @Test

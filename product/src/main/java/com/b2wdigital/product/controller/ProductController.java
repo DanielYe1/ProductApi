@@ -27,9 +27,7 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ProductList list(Product filter, FilterMetadata filterMetadata) {
-
-
-        return new ProductList(service.findAllBy(filter, filterMetadata));
+        return service.findAllBy(filter, filterMetadata);
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)

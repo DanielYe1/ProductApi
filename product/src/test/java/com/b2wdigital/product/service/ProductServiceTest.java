@@ -1,6 +1,8 @@
 package com.b2wdigital.product.service;
 
 import com.b2wdigital.product.controller.api.FilterMetadata;
+import com.b2wdigital.product.controller.api.ProductList;
+import com.b2wdigital.product.controller.api.Result;
 import com.b2wdigital.product.model.Product;
 import com.b2wdigital.product.repository.ProductRepository;
 import com.b2wdigital.product.repository.QueryBuilder;
@@ -39,12 +41,14 @@ public class ProductServiceTest {
         FilterMetadata filterMetadata = mock(FilterMetadata.class);
         Product product = mock(Product.class);
         Query query = mock(Query.class);
+        long total = 1;
         com.b2wdigital.product.controller.api.Product productApi = mock(com.b2wdigital.product.controller.api.Product.class);
 
         when(queryBuilder.buildFilter(productApi, filterMetadata)).thenReturn(query);
         when(mongo.find(query, Product.class)).thenReturn(Collections.singletonList(product));
         when(product.toProductApi()).thenReturn(productApi);
-        assertThat(service.findAllBy(productApi, filterMetadata), equalTo(Collections.singletonList(productApi)));
+        when(mongo.count(query, Product.class)).thenReturn(total);
+        assertThat(service.findAllBy(productApi, filterMetadata), equalTo(new ProductList(Collections.singletonList(productApi), new Result(total))));
     }
 
     @Test

@@ -2,10 +2,13 @@ package com.b2wdigital.product.service;
 
 import com.b2wdigital.product.controller.api.FilterMetadata;
 import com.b2wdigital.product.controller.api.Product;
+import com.b2wdigital.product.controller.api.ProductList;
+import com.b2wdigital.product.controller.api.Result;
 import com.b2wdigital.product.repository.ProductRepository;
 import com.b2wdigital.product.repository.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +27,11 @@ public class ProductService {
     @Autowired
     private QueryBuilder queryBuilder;
 
-    public List<Product> findAllBy(Product filter, FilterMetadata filterMetadata) {
-        return mongo.find(queryBuilder.buildFilter(filter,filterMetadata), com.b2wdigital.product.model.Product.class).stream().map(com.b2wdigital.product.model.Product::toProductApi).collect(Collectors.toList());
+    public ProductList findAllBy(Product filter, FilterMetadata filterMetadata) {
+        Query query = queryBuilder.buildFilter(filter, filterMetadata);
+
+        return new ProductList(mongo.find(query, com.b2wdigital.product.model.Product.class).stream().map(com.b2wdigital.product.model.Product::toProductApi).collect(Collectors.toList()),
+                new Result(mongo.count(query, com.b2wdigital.product.model.Product.class)));
     }
 
     public Product add(Product product) {

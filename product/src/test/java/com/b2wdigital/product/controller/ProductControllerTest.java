@@ -1,9 +1,6 @@
 package com.b2wdigital.product.controller;
 
-import com.b2wdigital.product.controller.api.FilterMetadata;
-import com.b2wdigital.product.controller.api.Product;
-import com.b2wdigital.product.controller.api.ProductList;
-import com.b2wdigital.product.controller.api.ResponseHeaderBuilder;
+import com.b2wdigital.product.controller.api.*;
 import com.b2wdigital.product.service.ProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,11 +38,10 @@ public class ProductControllerTest {
 
     @Test
     public void deveria_retornar_todos_os_produtos() {
-        final Product product = mock(Product.class);
+        Product product = mock(Product.class);
+        ProductList productList = new ProductList(Collections.singletonList(product), new Result(1));
 
-        when(service.findAllBy(product, filterMetadata)).thenReturn(Collections.singletonList(product));
-
-        ProductList productList = new ProductList(Collections.singletonList(product));
+        when(service.findAllBy(product, filterMetadata)).thenReturn(productList);
 
         assertThat(controller.list(product, filterMetadata), equalTo(productList));
         verify(service).findAllBy(eq(product), eq(filterMetadata));
