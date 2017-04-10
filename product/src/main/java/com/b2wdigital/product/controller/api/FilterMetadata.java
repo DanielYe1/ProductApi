@@ -11,8 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class FilterMetadata {
-    private int offset;
-    private int limit;
+    private int offset = 0;
+    private int limit = 20;
     private List<String> sortBy;
     private List<String> fields;
 

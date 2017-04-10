@@ -31,7 +31,10 @@ public class ProductService {
         Query query = queryBuilder.buildFilter(filter, filterMetadata);
 
         return new ProductList(mongo.find(query, com.b2wdigital.product.model.Product.class).stream().map(com.b2wdigital.product.model.Product::toProductApi).collect(Collectors.toList()),
-                new Result(mongo.count(query, com.b2wdigital.product.model.Product.class)));
+                new Result(mongo.count(query, com.b2wdigital.product.model.Product.class)
+                        , query.getLimit()
+                        , query.getSkip()
+                ));
     }
 
     public Product add(Product product) {

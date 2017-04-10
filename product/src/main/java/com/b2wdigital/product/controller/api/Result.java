@@ -1,17 +1,15 @@
 package com.b2wdigital.product.controller.api;
 
 
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
 
-@Value
-@EqualsAndHashCode
+import java.util.Optional;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Result {
     private long total;
-    private int limit=20;
-    private int offset=0;
-
-    public Result(long total) {
-        this.total = total;
-    }
+    private int limit;
+    private int offset;
 }

@@ -26,6 +26,10 @@ public class QueryBuilderTest {
     @Mock
     private FieldFilter fieldFilter;
 
+    private int startLimit = 20;
+
+    private int startOffset = 0;
+
     @Test
     public void deveria_criar_query_com_todos_os_atributos() {
         Product product = new Product("1", "nome", "imagem");
@@ -34,6 +38,8 @@ public class QueryBuilderTest {
         Query query = new Query();
         query.addCriteria(Criteria.where("name").is("nome"));
         query.addCriteria(Criteria.where("image").is("imagem"));
+        query.limit(startLimit);
+        query.skip(startOffset);
 
         assertThat(creator.buildFilter(product, filterMetadata), equalTo(query));
     }
@@ -46,6 +52,8 @@ public class QueryBuilderTest {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("image").is("imagem"));
+        query.limit(startLimit);
+        query.skip(startOffset);
 
         assertThat(creator.buildFilter(product, filterMetadata), equalTo(query));
     }
@@ -58,6 +66,8 @@ public class QueryBuilderTest {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("name").is("nome"));
+        query.limit(startLimit);
+        query.skip(startOffset);
 
         assertThat(creator.buildFilter(product, filterMetadata), equalTo(query));
     }
@@ -70,6 +80,8 @@ public class QueryBuilderTest {
 
         Query query = new Query();
         query.limit(filterMetadata.getLimit());
+        query.limit(10);
+        query.skip(startOffset);
 
         assertThat(creator.buildFilter(product, filterMetadata), equalTo(query));
     }
@@ -79,9 +91,11 @@ public class QueryBuilderTest {
         Product product = new Product();
         FilterMetadata filterMetadata = new FilterMetadata();
         filterMetadata.setOffset(2);
+        filterMetadata.setLimit(startLimit);
 
         Query query = new Query();
         query.skip(2);
+        query.limit(startLimit);
 
         assertThat(creator.buildFilter(product, filterMetadata), equalTo(query));
     }

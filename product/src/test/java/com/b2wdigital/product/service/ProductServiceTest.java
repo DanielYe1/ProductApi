@@ -42,13 +42,17 @@ public class ProductServiceTest {
         Product product = mock(Product.class);
         Query query = mock(Query.class);
         long total = 1;
+        int limit = 2;
+        int offset = 0;
         com.b2wdigital.product.controller.api.Product productApi = mock(com.b2wdigital.product.controller.api.Product.class);
 
         when(queryBuilder.buildFilter(productApi, filterMetadata)).thenReturn(query);
         when(mongo.find(query, Product.class)).thenReturn(Collections.singletonList(product));
         when(product.toProductApi()).thenReturn(productApi);
         when(mongo.count(query, Product.class)).thenReturn(total);
-        assertThat(service.findAllBy(productApi, filterMetadata), equalTo(new ProductList(Collections.singletonList(productApi), new Result(total))));
+        when(query.getLimit()).thenReturn(limit);
+        when(query.getSkip()).thenReturn(offset);
+        assertThat(service.findAllBy(productApi, filterMetadata), equalTo(new ProductList(Collections.singletonList(productApi), new Result(total, limit, offset))));
     }
 
     @Test

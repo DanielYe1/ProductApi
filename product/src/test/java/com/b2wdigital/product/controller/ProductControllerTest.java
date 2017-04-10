@@ -39,7 +39,8 @@ public class ProductControllerTest {
     @Test
     public void deveria_retornar_todos_os_produtos() {
         Product product = mock(Product.class);
-        ProductList productList = new ProductList(Collections.singletonList(product), new Result(1));
+        Result result = mock(Result.class);
+        ProductList productList = new ProductList(Collections.singletonList(product), result);
 
         when(service.findAllBy(product, filterMetadata)).thenReturn(productList);
 

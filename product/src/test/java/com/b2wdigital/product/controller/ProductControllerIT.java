@@ -46,7 +46,7 @@ public class ProductControllerIT {
     @Test
     public void deveria_retornar_dados_do_produto() throws Exception {
         given(service.findAllBy(any(Product.class), any(FilterMetadata.class))).willReturn(new ProductList(Collections.singletonList(new Product("1", "prod1", "img1")),
-                new Result(20)));
+                new Result(20,20,0)));
 
         this.mvc.
                 perform(get("/product")
