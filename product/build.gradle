@@ -37,3 +37,7 @@ dependencies {
     annotationProcessor('org.projectlombok:lombok:1.16.14')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '5.4'
+}
