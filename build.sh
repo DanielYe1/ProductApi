@@ -1,0 +1,2 @@
+cd product/
+gradle check
