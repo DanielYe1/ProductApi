@@ -19,6 +19,10 @@ jar {
     version = '0.0.1-SNAPSHOT'
 }
 
+springBoot {
+    mainClass = 'com.b2wdigital.product.ProductApplication'
+}
+
 sourceCompatibility = 1.8
 
 repositories {
@@ -30,5 +34,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-web')
     compileOnly('org.projectlombok:lombok:1.16.14')
+    annotationProcessor('org.projectlombok:lombok:1.16.14')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
