@@ -1,2 +1,2 @@
 cd product/
-sh gradlew build
+./gradlew build
