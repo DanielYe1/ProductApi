@@ -2,7 +2,10 @@ language: java
 jdk:
   - oraclejdk8
 
-bebefore_script: 
+before_script: 
+  - cd product/
+
+before_install:
   - cd product/
 
 script:
