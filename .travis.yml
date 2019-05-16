@@ -2,5 +2,8 @@ language: java
 jdk:
   - oraclejdk8
 
+bebefore_script: 
+  - cd product/
+
 script:
   - gradle check
