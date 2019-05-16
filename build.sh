@@ -1,2 +1,2 @@
 cd product/
-gradle check
+./gradlew build
