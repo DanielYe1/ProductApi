@@ -1,3 +1,3 @@
-gradle -v
+distributionUrl=https\://services.gradle.org/distributions/gradle-5.4.1-all.zip
 cd product/
 ./gradlew build
